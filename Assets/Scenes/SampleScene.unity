@@ -689,9 +689,85 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car
       objectReference: {fileID: 0}
-    - target: {fileID: 147627251938820114, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 1279519599}
+    - target: {fileID: 147627252122314854, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252122314854, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumSlip
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252122314854, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteSlip
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252122314854, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252122314854, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252143115145, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252143115145, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumSlip
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252143115145, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteSlip
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252143115145, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252143115145, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252948778380, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252948778380, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumSlip
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252948778380, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteSlip
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252948778380, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627252948778380, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627253146017171, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627253146017171, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumSlip
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627253146017171, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteSlip
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627253146017171, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 147627253146017171, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteValue
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4337e6cb406b37e4ba1054c955d63b78, type: 3}

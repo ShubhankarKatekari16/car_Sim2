@@ -5,12 +5,10 @@ using UnityEngine.UI;
 
 public class carController : MonoBehaviour
 {
-    private float mHorizantalInput, mVerticalInput, brakeInput, mSteeringAngle;
-    public int lowestSpeed = 1;
-    public int highestSpeed = 50;
-    public float lowSteerAngle = 1;
-    public float highSteerAngle = 50;
-    public int speed = 5;
+    private float mHorizantalInput, mVerticalInput, brakeInput, mSteeringAngle, revInput;
+
+
+    public float speed = 1;
     public WheelCollider fDriverW, fPassengerW, rDriverW, rPassengerW;
     public Transform fDriverT, fPassengerT, rDriverT, rPassengerT;
 
@@ -25,18 +23,38 @@ public class carController : MonoBehaviour
         mHorizantalInput = Input.GetAxis("Horizontal");
         mVerticalInput = (Input.GetAxis("Vertical") + 1) / 2.0f;
         brakeInput = Mathf.Clamp01(Input.GetAxis("Brake") + 1);
+        revInput = (Input.GetAxis("Reverse") + 1) / 2.0f;
         //Debug.Log(mVerticalInput);
-        
+    }
+    private void Update()
+    {
+
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton5))
+        {
+            Debug.Log("Pressed");
+        }
+
     }
 
     public void steer()
     {
         mSteeringAngle = maxSteeringAngle * mHorizantalInput;
-       
+
         mSteeringAngle = maxSteeringAngle * Input.GetAxis("Horizontal");
+        if (mSteeringAngle >= 10)
+        {
+            mSteeringAngle = 10;
+        }
+        else if (mSteeringAngle <= -10)
+        {
+            mSteeringAngle = -10;
+        }
         fDriverW.steerAngle = mSteeringAngle;
-        fPassengerW.steerAngle = mSteeringAngle; 
-      
+        fPassengerW.steerAngle = mSteeringAngle;
+
+
+
 
     }
 
@@ -44,6 +62,7 @@ public class carController : MonoBehaviour
     {
         fDriverW.motorTorque = mVerticalInput * motorForce * speed;
         fPassengerW.motorTorque = mVerticalInput * motorForce * speed;
+        //Debug.Log(fPassengerW.motorTorque);
     }
 
     public void Brake()
@@ -55,6 +74,11 @@ public class carController : MonoBehaviour
         //rb.velocity *= 1.0f - brakeInput;
         //fDriverW.motorTorque *= 1.0f - brakeInput;
         //fPassengerW.motorTorque *= 1.0f - brakeInput;
+    }
+    public void reverse()
+    {
+        fDriverW.motorTorque = revInput * -motorForce * speed;
+        fPassengerW.motorTorque = revInput * -motorForce * speed;
     }
 
     private void updateWheelPosses()
@@ -81,12 +105,22 @@ public class carController : MonoBehaviour
     private void FixedUpdate()
     {
         Brake();
+        if (mVerticalInput > 0)
+        {
+            Accelerate();
+        }
+        else
+        {
+            reverse();
+        }
         getInput();
         steer();
-        Accelerate();
         updateWheelPosses();
-        rb.AddForce(Vector3.down * 10 , ForceMode.Acceleration);
+        rb.AddForce(Vector3.down * 10, ForceMode.Acceleration);
+        //Debug.Log(mSteeringAngle);
         //Debug.Log(speed);
+
+
         //textField.text = "Motor: " + (mVerticalInput * motorForce * speed * 2).ToString("F2");
         // textField.text += "\nBrake: " + (brakeInput * motorForce * speed * 2).ToString("F2");
         //f textField.text += "\nRigidbody: " + transform.InverseTransformDirection(rb.velocity).z.ToString("F2");
