@@ -17,6 +17,7 @@ public class carController : MonoBehaviour
     public float maxSteeringAngle = 30;
     public float motorForce = 50;
     Rigidbody rb;
+    public Transform centerObject;
 
     public Text textField;
     public void getInput()
@@ -25,21 +26,17 @@ public class carController : MonoBehaviour
         mVerticalInput = (Input.GetAxis("Vertical") + 1) / 2.0f;
         brakeInput = Mathf.Clamp01(Input.GetAxis("Brake") + 1);
         //Debug.Log(mVerticalInput);
+        
     }
 
     public void steer()
     {
-        //mSteeringAngle = maxSteeringAngle * mHorizantalInput;
-        float speedFactor = rb.velocity.magnitude / highestSpeed;
-        var currentSteerAngle = 30f;// Mathf.Lerp(lowSteerAngle, highSteerAngle, speedFactor);
-        currentSteerAngle *= Input.GetAxis("Horizontal");
-        //mSteeringAngle = Input.GetAxis("Horizontal");
-        //fDriverW.steerAngle = mSteeringAngle;
-        fDriverW.steerAngle = currentSteerAngle;
-        //fPassengerW.steerAngle = mSteeringAngle;
-        fPassengerW.steerAngle = currentSteerAngle;
-        //currentSteerAngle = maxSteeringAngle;
-        Debug.Log("Steering: " + (currentSteerAngle).ToString("F2"));
+        mSteeringAngle = maxSteeringAngle * mHorizantalInput;
+       
+        mSteeringAngle = maxSteeringAngle * Input.GetAxis("Horizontal");
+        fDriverW.steerAngle = mSteeringAngle;
+        fPassengerW.steerAngle = mSteeringAngle; 
+      
 
     }
 
@@ -88,6 +85,7 @@ public class carController : MonoBehaviour
         steer();
         Accelerate();
         updateWheelPosses();
+        rb.AddForce(Vector3.down * 10 , ForceMode.Acceleration);
         //Debug.Log(speed);
         //textField.text = "Motor: " + (mVerticalInput * motorForce * speed * 2).ToString("F2");
         // textField.text += "\nBrake: " + (brakeInput * motorForce * speed * 2).ToString("F2");
@@ -97,6 +95,8 @@ public class carController : MonoBehaviour
     public void Start()
     {
         rb = GetComponent<Rigidbody>();
+        //rb.centerOfMass = centerObject.position;
+        //rb.centerOfMass -= Vector3.down;
     }
 
 
