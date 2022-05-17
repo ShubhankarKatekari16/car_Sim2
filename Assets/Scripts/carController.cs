@@ -36,28 +36,14 @@ public class carController : MonoBehaviour
         }
 
     }
-
     public void steer()
     {
         mSteeringAngle = maxSteeringAngle * mHorizantalInput;
-
         mSteeringAngle = maxSteeringAngle * Input.GetAxis("Horizontal");
-        if (mSteeringAngle >= 10)
-        {
-            mSteeringAngle = 10;
-        }
-        else if (mSteeringAngle <= -10)
-        {
-            mSteeringAngle = -10;
-        }
+        
         fDriverW.steerAngle = mSteeringAngle;
         fPassengerW.steerAngle = mSteeringAngle;
-
-
-
-
     }
-
     public void Accelerate()
     {
         fDriverW.motorTorque = mVerticalInput * motorForce * speed;
