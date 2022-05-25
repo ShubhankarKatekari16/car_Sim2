@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class carController : MonoBehaviour
 {
     private float mHorizantalInput, mVerticalInput, brakeInput, mSteeringAngle, revInput;
-    float[] gears = new float[4] { 0.3f, 0.5f, 0.7f, 0.9f };
+    float[] gears = new float[4] { 0.1f, 0.4f, 0.6f, 0.9f };//{ 0.3f, 0.5f, 0.7f, 0.9f };
     [SerializeField] int gearIndex = 0;
     [SerializeField] float mySpeed = 0;
     private const float speedMultiplier = 0.1f;
@@ -21,6 +21,9 @@ public class carController : MonoBehaviour
     public Transform centerObject;
 
     public Text textField;
+
+
+
     public void getInput()
     {
         mHorizantalInput = Input.GetAxis("Horizontal");
@@ -31,6 +34,7 @@ public class carController : MonoBehaviour
     }
     private void Update()
     {
+        //Debug.DrawLine(transform.position, transform.position + rb.velocity);
         if (rb.velocity.magnitude < 1)
         {
             gearIndex = 0;
@@ -77,13 +81,13 @@ public class carController : MonoBehaviour
 
             }
         }
-        
+
         mySpeed = rb.velocity.magnitude;
         controlSound();
         // Debug.Log(GetComponent<Rigidbody>().velocity.magnitude);
         // Debug.Log(gearIndex);
 
-
+        // print(Input.GetAxis("Horizontal"));
     }
     public void steer()
     {
@@ -157,6 +161,13 @@ public class carController : MonoBehaviour
         steer();
         updateWheelPosses();
         rb.AddForce(Vector3.down * 10, ForceMode.Acceleration);
+        // sway surge heave pitch roll yaw
+        PlatformController.singleton.floatValues[4] = Mathf.Min(transform.InverseTransformDirection(rb.velocity).x * 1.0f, 12);
+        PlatformController.singleton.floatValues[1] = Mathf.Min(transform.InverseTransformDirection(-rb.velocity).z * 0.5f, 8);
+        PlatformController.singleton.floatValues[5] = Input.GetAxis("Horizontal") * 8;
+        //print(transform.InverseTransformDirection(rb.velocity));
+
+
         //Debug.Log(mSteeringAngle);
         //Debug.Log(speed);
 
@@ -169,28 +180,32 @@ public class carController : MonoBehaviour
     public void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //rb.centerOfMass = centerObject.position;
-        //rb.centerOfMass -= Vector3.down;
+        PlatformController.singleton.Init("COM3", 115200);
     }
     public void controlSound()
     {
         AudioSource audioSource = GetComponent<AudioSource>();
-        if (gearIndex == 0 && rb.velocity.magnitude < 37)
+        if (gearIndex == 0 /*&& rb.velocity.magnitude < 37*/)
         {
             audioSource.pitch = 0.8f + (rb.velocity.magnitude / 37.0f) * 0.6f; // 0, 37
         }
-        else if (gearIndex == 1 && rb.velocity.magnitude < 40 && rb.velocity.magnitude > 20)
+        else if (gearIndex == 1 /*&& rb.velocity.magnitude < 40 && rb.velocity.magnitude > 20*/)
         {
             audioSource.pitch = 0.9f + (Mathf.Max(0, (rb.velocity.magnitude - 37.0f)) / 14.0f) * 0.6f; // 37, 51
         }
-        else if (gearIndex == 2 && rb.velocity.magnitude < 60 && rb.velocity.magnitude > 40)
+        else if (gearIndex == 2 /*&& rb.velocity.magnitude < 60 && rb.velocity.magnitude > 40*/)
         {
-            audioSource.pitch = 1.0f + (Mathf.Max(0, (rb.velocity.magnitude - 51)) / 8.0f) * 0.6f; // 51, 59
+            audioSource.pitch = 1f + (Mathf.Max(0, (rb.velocity.magnitude - 45)) / 14.0F) * 0.6f; // 51, 59
         }
-        else if (gearIndex == 3 && rb.velocity.magnitude < 80 && rb.velocity.magnitude > 60)
+        else if (gearIndex == 3 /*&& rb.velocity.magnitude < 80 && rb.velocity.magnitude > 60*/)
         {
-            audioSource.pitch = 1.1f + (Mathf.Max(0, (rb.velocity.magnitude - 59)) / 4.0f) * 0.6f;
+            audioSource.pitch = 1.1f + (Mathf.Max(0, (rb.velocity.magnitude - 56)) / 8.0f) * 0.4f;
         }
 
     }
+    public float retSpeed()
+    {
+        return rb.velocity.magnitude;
+    }
+
 }
