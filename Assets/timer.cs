@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System;
 
 public class timer : MonoBehaviour
 {
 
     public float startTime = 5;
+    float speed;
     public float currentTime;
     bool raceStarted = false;
     public TextMeshProUGUI text;
+    public TextMeshProUGUI speedText;
     public checkPoints checkPoint;
     float highScore = Mathf.Infinity;
 
@@ -19,6 +22,7 @@ public class timer : MonoBehaviour
         highScore = PlayerPrefs.GetFloat("HIGH SCORE", 100000);
         print("Time to beat: " + highScore.ToString("F3"));
         currentTime = startTime;
+        
 
     }
     private void Update()
@@ -43,8 +47,11 @@ public class timer : MonoBehaviour
         else
         {
             currentTime += Time.deltaTime;
-            if (!checkPoint.raceFinished) text.text = currentTime.ToString("F2");
+            float time = 0f;
+            TimeSpan t = TimeSpan.FromSeconds(currentTime);
+            if (!checkPoint.raceFinished) text.text = string.Format("{0,1:0}:{1,2:00}", t.Minutes, t.Seconds);//currentTime.ToString("F2");
         }
+        speedoMeter(speed);
 
 
     }
@@ -53,6 +60,7 @@ public class timer : MonoBehaviour
     {
         //if (checkPoint.raceFinished == true)
         //{
+
         text.text = "Race Finished in " + finishTime.ToString("F2");
 
         if (finishTime < highScore)
@@ -61,6 +69,17 @@ public class timer : MonoBehaviour
             PlayerPrefs.SetFloat("HIGH SCORE", finishTime);
             print("You got high score: " + highScore.ToString("F3"));
         }
+       
+        //}
+    }
+    public void speedoMeter(float speed)
+    {
+        //if (checkPoint.raceFinished == true)
+        //{
+        //        speed = GetComponent<Rigidbody>().velocity.magnitude * 2.237f;
+        speed =  Mathf.Abs( transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity).z * 2.237f);
+        speedText.text = "Your speed: " + speed.ToString("F1");
+
         //}
     }
 }
